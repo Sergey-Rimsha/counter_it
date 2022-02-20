@@ -1,0 +1,58 @@
+.counter {
+	display: flex;
+	flex-direction: column;
+	height: 600px;
+	width: 600px;
+	align-items: center;
+	justify-content: center;
+	border: aqua solid 2px;
+	border-radius: 20px;
+}
+
+.counterRed {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 400px;
+	height: 100px;
+	border: aqua solid 2px;
+	border-radius: 20px;
+	font-size: 30px;
+	color: red;
+}
+
+.counter .counterTitle {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 400px;
+	height: 100px;
+	border: aqua solid 2px;
+	border-radius: 20px;
+	font-size: 30px;
+}
+.buttonWrap {
+	margin-top: 25px;
+}
+
+.buttonWrap button {
+	width: 200px;
+	background-color: aqua;
+	border: none;
+	color: gray;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 22px;
+	border-radius: 10px;
+	margin: 15px;
+}
+
+.btnActive {
+	opacity: 0.9;
+}
+
+.btnDisabled {
+	opacity: 0.5;
+}
