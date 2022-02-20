@@ -17,7 +17,7 @@
 	height: 100px;
 	border: aqua solid 2px;
 	border-radius: 20px;
-	font-size: 30px;
+	font-size: 50px;
 	color: red;
 }
 
@@ -29,7 +29,7 @@
 	height: 100px;
 	border: aqua solid 2px;
 	border-radius: 20px;
-	font-size: 30px;
+	font-size: 50px;
 }
 .buttonWrap {
 	margin-top: 25px;
@@ -46,11 +46,12 @@
 	display: inline-block;
 	font-size: 22px;
 	border-radius: 10px;
+	box-shadow: 1px 1px 15px 5px rgba(0,255,255, 0.6);
 	margin: 15px;
 }
 
 .btnActive {
-	opacity: 0.9;
+	opacity: 1;
 }
 
 .btnDisabled {

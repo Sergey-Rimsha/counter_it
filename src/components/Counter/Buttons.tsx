@@ -1,5 +1,5 @@
 import React from "react";
-import style from './Counter/Counter.module.css'
+import style from './Counter.module.css'
 
 
 type ButtonsPropsType = {
