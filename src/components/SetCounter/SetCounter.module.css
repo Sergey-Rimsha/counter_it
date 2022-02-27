@@ -1,0 +1,62 @@
+
+.counter {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    width: 400px;
+    align-items: center;
+    justify-content: center;
+    border: aqua solid 2px;
+    border-radius: 20px;
+    margin-right: 25px;
+}
+
+.setButton {
+    width: 150px;
+    background-color: aqua;
+    border: none;
+    color: gray;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 22px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 15px 5px rgba(0,255,255, 0.6);
+    margin: 15px;
+}
+
+.setCounter {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    border: aqua solid 2px;
+    border-radius: 20px;
+}
+
+.setCounter .box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px;
+    font-size: 20px;
+}
+
+.setCounter .box .setInput {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 180px;
+    border: aqua solid 1px;
+    border-radius: 5px;
+    background-color: aqua;
+    color: #000;
+    font-size: 25px;
+    padding: 0 10px 0 10px;
+}
+
+.setCounter .box .setInput .wrapBtn {
+    display: flex;
+    flex-direction: column;
+
+}

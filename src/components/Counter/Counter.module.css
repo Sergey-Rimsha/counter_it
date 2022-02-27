@@ -59,18 +59,3 @@
 	opacity: 0.5;
 }
 
-
-.setButton {
-	width: 150px;
-	background-color: aqua;
-	border: none;
-	color: gray;
-	padding: 15px 32px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 22px;
-	border-radius: 10px;
-	box-shadow: 1px 1px 15px 5px rgba(0,255,255, 0.6);
-	margin: 15px;
-}
