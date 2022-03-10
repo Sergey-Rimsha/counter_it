@@ -6,6 +6,8 @@ import {Button} from "../Button";
 
 type CounterPropsType = {
 	counter: number
+	maxValue: number
+	startValue: number
 	onClickIncBtn: () => void
 	onClickResetBtn: () => void
 }
@@ -13,20 +15,19 @@ type CounterPropsType = {
 export const Counter = (props: CounterPropsType) => {
 
 	/// Increment Style and Disabled
-	let styleInc = props.counter > 4 ? style.btnDisabled : style.btnActive;
-	let disabledIcn = props.counter > 4;
+	let styleInc = props.counter >= props.maxValue ? style.btnDisabled : style.btnActive;
+	let disabledIcn = props.counter >= props.maxValue;
 
 	/// Reset Style and Disabled
-	let styleReset = props.counter === 0 ? style.btnDisabled : style.btnActive;
-	let disabledReset = props.counter === 0;
+	let styleReset = props.counter === props.startValue ? style.btnDisabled : style.btnActive;
+	let disabledReset = props.counter === props.startValue;
 
 	return (
 		<div className={style.counter}>
-			<Scoreboard counter={props.counter}/>
-			{/*<Buttons*/}
-			{/*	counter={props.counter}*/}
-			{/*	onClickIncBtn={props.onClickIncBtn}*/}
-			{/*	onClickResetBtn={props.onClickResetBtn}/>*/}
+			<Scoreboard
+				counter={props.counter}
+				maxValue={props.maxValue}
+			/>
 			<div className={style.buttonWrap}>
 				<Button
 					title={'inc'}

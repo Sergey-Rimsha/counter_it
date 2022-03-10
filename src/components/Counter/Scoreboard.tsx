@@ -3,13 +3,14 @@ import style from "./Counter.module.css";
 
 type ScoreboardType = {
 	counter: number
+	maxValue: number
 }
 
 
 export const Scoreboard = (props:ScoreboardType) => {
 
 	return (
-		<div className={props.counter > 4 ? style.counterRed : style.counterTitle}>
+		<div className={props.counter >= props.maxValue ? style.counterRed : style.counterTitle}>
 			{props.counter}
 		</div>
 	)
