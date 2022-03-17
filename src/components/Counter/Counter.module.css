@@ -36,7 +36,7 @@
 	margin-top: 25px;
 }
 
-.buttonWrap button {
+button {
 	width: 150px;
 	background-color: aqua;
 	border: none;
@@ -51,11 +51,6 @@
 	margin: 15px;
 }
 
-.btnActive {
-	opacity: 1;
-}
-
-.btnDisabled {
+button:disabled {
 	opacity: 0.5;
 }
-

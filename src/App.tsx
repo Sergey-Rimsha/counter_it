@@ -10,10 +10,14 @@ function App() {
 	const [startValue, setStartValue] = useState(0);
 
 	//setCounter mode
-
-	const [minCounter, setMinCounter] = useState(0);
-	const [maxCounter, setMaxCounter] = useState(1);
 	const [editMode, setEditMode] = useState(false);
+	const [incorrectValue, setIncorrectValue] = useState(false);
+
+	// localStorage
+	useEffect(() => {
+		localStorage.setItem('startValue', startValue.toString());
+		localStorage.setItem('maxValue', maxValue.toString());
+	},[startValue, maxValue]);
 
 	useEffect(() => {
 		let startValue = localStorage.getItem("startValue");
@@ -23,9 +27,6 @@ function App() {
 		setCounter(localStartValue);
 		setStartValue(localStartValue);
 		setMaxValue(localMaxValue);
-		setMinCounter(localStartValue);
-		setMaxCounter(localMaxValue);
-
 	},[])
 
 	const onClickIncBtn = () => {
@@ -36,50 +37,27 @@ function App() {
 		setCounter(startValue);
 	}
 
-	// localStorage
-
-	const onClickSetCounterValue = () => {
-		localStorage.setItem('startValue', minCounter.toString());
-		localStorage.setItem('maxValue', maxCounter.toString());
+	const onClickSetCounterValue = (minCounter: number, maxCounter: number) => {
 		setMaxValue(maxCounter);
 		setStartValue(minCounter);
 		setCounter(minCounter);
-		setEditMode(false)
+		setEditMode(false);
 	}
-
-	const onHandlerMaxCounter = (operator: string) => {
-		setEditMode(true);
-		if (operator === '+') {
-			setMaxCounter(maxCounter + 1);
-		} else {
-			setMaxCounter(maxCounter - 1);
-		}
-	}
-	const onHandlerMinCounter = (operator: string) => {
-		setEditMode(true);
-		if (operator === '+') {
-			setMinCounter(minCounter + 1);
-		} else {
-			setMinCounter(minCounter - 1);
-		}
-	}
-
-
 
 	return (
 		<div className="App">
 			<SetCounter
-				minCounter={minCounter}
-				maxCounter={maxCounter}
 				editMode={editMode}
-				onHandlerMaxCounter={onHandlerMaxCounter}
-				onHandlerMinCounter={onHandlerMinCounter}
+				setEditMode={setEditMode}
 				onClickSetCounterValue={onClickSetCounterValue}
+				setIncorrectValue={setIncorrectValue}
 			/>
 			<Counter
 				counter={counter}
 				maxValue={maxValue}
 				startValue={startValue}
+				editMode={editMode}
+				incorrectValue={incorrectValue}
 				onClickIncBtn={onClickIncBtn}
 				onClickResetBtn={onClickResetBtn}/>
 		</div>

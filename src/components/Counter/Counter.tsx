@@ -8,6 +8,8 @@ type CounterPropsType = {
 	counter: number
 	maxValue: number
 	startValue: number
+	editMode: boolean
+	incorrectValue:boolean
 	onClickIncBtn: () => void
 	onClickResetBtn: () => void
 }
@@ -27,18 +29,20 @@ export const Counter = (props: CounterPropsType) => {
 			<Scoreboard
 				counter={props.counter}
 				maxValue={props.maxValue}
+				editMode={props.editMode}
+				incorrectValue={props.incorrectValue}
 			/>
 			<div className={style.buttonWrap}>
 				<Button
 					title={'inc'}
 					style={styleInc}
-					disabled={disabledIcn}
+					disabled={props.editMode || disabledIcn}
 					callback={props.onClickIncBtn}
 				/>
 				<Button
 					title={'reset'}
 					style={styleReset}
-					disabled={disabledReset}
+					disabled={props.editMode || disabledReset}
 					callback={props.onClickResetBtn}
 				/>
 			</div>

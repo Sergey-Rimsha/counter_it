@@ -1,53 +1,66 @@
-import React, {useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import style from "./SetCounter.module.css"
 import {Button} from "../Button";
 
 export type SetCounterPropsType = {
-	minCounter: number
-	maxCounter: number
 	editMode: boolean
-	onHandlerMaxCounter: (operator: string) => void
-	onHandlerMinCounter: (operator: string) => void
-	onClickSetCounterValue: () => void
+	setEditMode: (editeMode: boolean) => void
+	onClickSetCounterValue: (maxCounter: number, minCounter: number) => void
+	setIncorrectValue:(edit: boolean) => void
 }
 
 export const SetCounter = (props: SetCounterPropsType) => {
 
-	const [error, setError] = useState(false);
+
+	const [maxCounter, setMaxCounter] = useState(1);
+	const [minCounter, setMinCounter] = useState(0);
+
+	const [btnActive, setBtnActive] = useState(true);
 
 	const onClickSetCounter = () => {
-		props.onClickSetCounterValue();
+		if (maxCounter > minCounter && maxCounter > -1  && minCounter > -1) {
+			props.onClickSetCounterValue(minCounter, maxCounter);
+			setBtnActive(false);
+		} else {
+			setBtnActive(true);
+		}
+
+		console.log('onClickSetCounter');
 	}
+
 
 	useEffect(() => {
-
-		if (props.maxCounter > props.minCounter) {
-			setError(true);
-			console.log('dasd');
+		if (maxCounter > minCounter && maxCounter > -1  && minCounter > -1) {
+			// setBtnActive(false);
+			props.setIncorrectValue(false);
 		} else {
-			setError(false);
+			props.setIncorrectValue(true);
+			// setBtnActive(true);
 		}
-	}, [props.maxCounter, props.minCounter])
+	},[maxCounter, minCounter])
 
 
-	let styleBtn = error ? style.setButton : style.btnDisabled;
+	useEffect(() => {
+		let startValue = localStorage.getItem("startValue");
+		let localStartValue = JSON.parse(startValue ? startValue : "0");
+		let maxValue = localStorage.getItem("maxValue");
+		let localMaxValue = JSON.parse(maxValue ? maxValue : "5");
+		setMinCounter(localStartValue);
+		setMaxCounter(localMaxValue);
+
+	},[])
 
 
-	const onClickHandlerMaxCounter = (operator: string) => {
-		props.onHandlerMaxCounter(operator)
+	const onClickHandlerMaxCounter = (e: ChangeEvent<HTMLInputElement>) => {
+		props.setEditMode(true);
+		setBtnActive(false);
+		setMaxCounter(Number(e.currentTarget.value));
 	}
-	const onClickHandlerMinCounter = (operator: string) => {
-		props.onHandlerMinCounter(operator)
-	}
 
-	const editModeShow = () => {
-		if (props.editMode) {
-			return (
-				<div>
-					<span>plz sev settings counter</span>
-				</div>
-			)
-		}
+	const onClickHandlerMinCounter = (e: ChangeEvent<HTMLInputElement>) => {
+		props.setEditMode(true);
+		setBtnActive(false);
+		setMinCounter(Number(e.currentTarget.value));
 	}
 
 
@@ -57,33 +70,21 @@ export const SetCounter = (props: SetCounterPropsType) => {
 				<div className={style.box}>
 					<div>max value:</div>
 					<div className={style.setInput}>
-						<span>{props.maxCounter}</span>
-						<div className={style.wrapBtn}>
-							<button onClick={() => onClickHandlerMaxCounter('+')}>+</button>
-							<button onClick={() => onClickHandlerMaxCounter('-')}>-</button>
-						</div>
+						<input type={'number'} value={maxCounter} onChange={onClickHandlerMaxCounter} />
 					</div>
 				</div>
 				<div className={style.box}>
 					<div>min value:</div>
 					<div className={style.setInput}>
-						<span>{props.minCounter}</span>
-						<div className={style.wrapBtn}>
-							<button onClick={() => onClickHandlerMinCounter('+')}>+</button>
-							<button onClick={() => onClickHandlerMinCounter('-')}>-</button>
-						</div>
+						<input type={'number'} value={minCounter} onChange={onClickHandlerMinCounter} />
 					</div>
 				</div>
 			</div>
-			{
-				props.editMode ? <div>sev settings counter</div> : <div></div>
-			}
-			{editModeShow}
 			<div>
 				<Button
 					title={"set"}
-					style={styleBtn}
-					disabled={false}
+					style={style.setButton}
+					disabled={btnActive}
 					callback={onClickSetCounter}/>
 			</div>
 		</div>
