@@ -1,47 +1,64 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {Counter} from "./components/Counter/Counter";
 import {SetCounter} from "./components/SetCounter/SetCounter";
+import {useDispatch, useSelector} from "react-redux";
+import {
+	incCounterAC,
+	resetCounterAC,
+	setCounterValue,
+	setEditModeAC,
+	setIncorrectModeAC, StateType
+} from "./redux/counterReducer";
+import {RootStateType} from "./redux/store";
 
 function App() {
 
-	const [counter, setCounter] = useState(0);
-	const [maxValue, setMaxValue] = useState(1);
-	const [startValue, setStartValue] = useState(0);
+	const dispatch = useDispatch()
 
-	//setCounter mode
-	const [editMode, setEditMode] = useState(false);
-	const [incorrectValue, setIncorrectValue] = useState(false);
+	let {
+		counter,
+		maxValue,
+		startValue,
+		editMode,
+		incorrectMode,
+	} = useSelector<RootStateType, StateType>(state => state.counter);
+
+
 
 	// localStorage
-	useEffect(() => {
-		localStorage.setItem('startValue', startValue.toString());
-		localStorage.setItem('maxValue', maxValue.toString());
-	},[startValue, maxValue]);
+	// useEffect(() => {
+	// 	localStorage.setItem('startValue', startValue.toString());
+	// 	localStorage.setItem('maxValue', maxValue.toString());
+	// },[startValue, maxValue]);
 
 	useEffect(() => {
 		let startValue = localStorage.getItem("startValue");
 		let localStartValue = JSON.parse(startValue ? startValue : "0");
 		let maxValue = localStorage.getItem("maxValue");
 		let localMaxValue = JSON.parse(maxValue ? maxValue : "5");
-		setCounter(localStartValue);
-		setStartValue(localStartValue);
-		setMaxValue(localMaxValue);
+
+		dispatch(setCounterValue(localStartValue, localMaxValue, false))
 	},[])
 
 	const onClickIncBtn = () => {
-		setCounter(counter + 1);
+		dispatch(incCounterAC())
 	}
 
 	const onClickResetBtn = () => {
-		setCounter(startValue);
+		dispatch(resetCounterAC());
 	}
 
 	const onClickSetCounterValue = (minCounter: number, maxCounter: number) => {
-		setMaxValue(maxCounter);
-		setStartValue(minCounter);
-		setCounter(minCounter);
-		setEditMode(false);
+		dispatch(setCounterValue(minCounter, maxCounter, false));
+	}
+
+	const setEditMode = (editMode: boolean) => {
+		dispatch(setEditModeAC(editMode));
+	}
+
+	const setIncorrectValue = (incorrectMode: boolean) => {
+		dispatch(setIncorrectModeAC(incorrectMode));
 	}
 
 	return (
@@ -57,7 +74,7 @@ function App() {
 				maxValue={maxValue}
 				startValue={startValue}
 				editMode={editMode}
-				incorrectValue={incorrectValue}
+				incorrectValue={incorrectMode}
 				onClickIncBtn={onClickIncBtn}
 				onClickResetBtn={onClickResetBtn}/>
 		</div>

@@ -1,3 +1,4 @@
+import {RootStateType} from "./store";
 
 export type StateSetCounterType = {
 	minCounter: number
@@ -11,8 +12,8 @@ export type ActionCounterType = ReturnType<typeof setMinCounterAC>
 
 
 const initialState: StateSetCounterType = {
-	minCounter: 0,
 	maxCounter: 5,
+	minCounter: 0,
 	btnActive: true,
 
 }
@@ -27,7 +28,7 @@ export const setCounterReducer = (state: StateSetCounterType = initialState , ac
 		}
 		case "SET_MAX_COUNTER": {
 			const stateCopy = {...state};
-			stateCopy.minCounter = action.maxCounter;
+			stateCopy.maxCounter = action.maxCounter;
 
 			return stateCopy;
 		}
@@ -66,4 +67,6 @@ export const setActiveBtnAC = (active: boolean) => {
 		active
 	} as const
 };
+
+export const selectorSetCounterState = (store: RootStateType) => store.setCounter
 

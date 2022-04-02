@@ -8,7 +8,7 @@ beforeEach( () => {
 		maxValue: 5,
 		startValue: 0,
 		editMode: false,
-		incorrectValue: false,
+		incorrectMode: false,
 	};
 })
 
@@ -35,7 +35,7 @@ test('test set new value correct counter', () => {
 	const startValue = 1;
 	const maxValue = 5;
 
-	const action = setCounterValue(startValue, maxValue);
+	const action = setCounterValue(startValue, maxValue, false);
 	const endState = counterReducer(startState, action);
 
 	expect(endState.counter).toBe(startValue);
